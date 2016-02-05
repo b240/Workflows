@@ -29,5 +29,5 @@ swift-t -m cobalt -n 3 program.swift
 
 Further information about running on the Blue Gene/Q is here:
 
-http://swift-lang.org/Swift-T/turbine-sites.html\#\_blue_gene_q
+http://swift-lang.org/Swift-T/turbine-sites.html#_blue_gene_q
 
