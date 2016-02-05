@@ -21,10 +21,10 @@ $ PATH=/soft/workflows/swift/T/stc/bin:$PATH
 
 Run with:
 ```
-export MODE=BGQ
-export PROJECT=<project_name>
-export QUEUE=<queue_name>
-swift-t -m cobalt -n 3 program.swift
+$ export MODE=BGQ
+$ export PROJECT=<project_name>
+$ export QUEUE=<queue_name>
+$ swift-t -m cobalt -n 3 program.swift
 ```
 
 Further information about running on the Blue Gene/Q is here:
