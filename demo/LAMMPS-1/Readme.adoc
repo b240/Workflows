@@ -1,0 +1,16 @@
+
+////
+This is an Asciidoc file
+////
+
+= LAMMPS-1
+
+This example runs a single LAMMPS instance on the BG/Q.
+
+== Usage
+
+. Get the sample data
++
+----
+./get_data.sh
+----
