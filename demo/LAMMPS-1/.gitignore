@@ -9,3 +9,7 @@ lammps_test
 *.so
 lammps_wrap.cpp
 pkgIndex.tcl
+
+# Docs
+Readme.html
+Readme.pdf
