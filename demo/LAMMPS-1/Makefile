@@ -33,36 +33,27 @@ RPATHS += -Wl,-rpath -Wl,$(TCL)/lib
 
 .DELETE_ON_ERROR:
 
-all: sanity pkgIndex.tcl seni.tcl
+all: pkgIndex.tcl
 
 pkgIndex.tcl: libtcllammps.so
 	LEAF_PKG=lammps LEAF_VERSION=0.0 \
 	LEAF_SO=$(<) LEAF_TCL=lammps.tcl \
 	$(TCLSH) ./make-package.tcl > $(@)
 
-lammps_wrap.cpp: lammps.i
+lammps_wrap.cxx: lammps.i
 	swig -c++ -o $(@) -I$(LAMMPS) $(<)
 	sed -i s/Lammps_Init/Tcllammps_Init/ $(@)
 
 libtcllammps.so: lammps_wrap.o
 	$(CXX) $(SHARED) -o $(@) $(^) $(LIBS) $(RPATHS)
 
-seni.tcl: seni.swift lammps.swift
+workflow.tic: workflow.swift lammps.swift
 	stc -r $(PWD) $(<)
 
-sanity: .timestamp
-
-.timestamp: Makefile
-	@echo MAKEFILE CHANGED
-	make clean
-	touch .timestamp
-	@echo
-
 clean:
-	@echo CLEAN
-	@rm -fv simple.tcl pkgIndex.tcl libtcllammps.so
-	@rm -fv *.o
-	@rm -fv lammps_wrap.cpp
-	@rm -fv .timestamp
+	@rm -fv libtcllammps.so *.o
+	@rm -fv pkgIndex.tcl lammps_wrap.cpp
+#	Remove Swift/T stuff
+	@rm -fv *.tic turbine-directory.txt
 
-.PHONY: sanity clean
+.PHONY: clean
