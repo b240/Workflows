@@ -4,6 +4,7 @@
 # Edit these paths and settings:
 # CXX    = g++
 MPI    = # $(HOME)/sfw/mpich-master
+# MPI    = /bgsys/drivers/V1R2M1/ppc64/comm
 CXX    = mpicxx
 # LAMMPS = $(HOME)/downloads/lammps-11Jul13/src
 LAMMPS = $(HOME)/downloads/lammps-10Aug15/src
@@ -40,7 +41,7 @@ pkgIndex.tcl: libtcllammps.so
 	LEAF_SO=$(<) LEAF_TCL=lammps.tcl \
 	$(TCLSH) ./make-package.tcl > $(@)
 
-lammps_wrap.cxx: lammps.i
+lammps_wrap.cpp: lammps.i
 	swig -c++ -o $(@) -I$(LAMMPS) $(<)
 	sed -i s/Lammps_Init/Tcllammps_Init/ $(@)
 
