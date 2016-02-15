@@ -1,8 +1,0 @@
-LAMMPS test case from Seni
-
-Use ./get-data.sh to get the data set
-
-Wozniak modified the INP file to add a filter token
-
-This directory, seni-q, is for the BG/Q.
-
