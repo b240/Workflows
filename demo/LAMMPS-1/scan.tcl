@@ -1,6 +1,9 @@
 #!/usr/bin/env tclsh8.5
 
-set auto_path $env(PWD)
+# Note: This does not work on the BG/Q because we cannot load
+# MPI and thus LAMMPS on the login nodes
+
+lappend auto_path $env(PWD)
 
 package require lammps 0.0
 
