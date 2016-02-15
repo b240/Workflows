@@ -20,6 +20,8 @@ main
   {
     printf("input: %s", filename(i));
     lammps_args = "-i " + filename(i);
-    @par=1 lammps(data_directory, lammps_args);
+    // Run LAMMPS on one process
+    np = 1;
+    @par=np lammps(data_directory, lammps_args);
   }
 }
