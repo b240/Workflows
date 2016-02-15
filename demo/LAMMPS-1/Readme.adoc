@@ -5,14 +5,96 @@ This is an Asciidoc file
 
 = LAMMPS-1
 
-This example runs a single LAMMPS instance on the BG/Q.
+This example runs multiple variably-sized LAMMPS instances on the BG/Q
+inside one Cobalt allocation.
 
 == Usage
 
-. Get the sample data
+. *Build the Swift leaf function*
++
+----
+$ make
+----
++
+. *Get the sample data*
 +
 ----
 $ ./get_data.sh
 ----
-This creates directory +lammps_test/+
-. Create an input file
++
+This creates a directory +lammps_test/+ full of data
++
+. *Create one (or more) input files*
++
+----
+$ cp lammps_test/input.inp lammps_test/input-0.inp
+----
++
+Each input file matching +input-*.inp+ will be run in the workflow.
++
+. *Run it*
++
+----
+./run.sh
+----
+. *Check your output*
++
+Swift will output something like this:
++
+----
+TURBINE-COBALT SCRIPT
+NODES=8
+PROCS=8
+PPN=1
+TURBINE_OUTPUT=/home/wozniak/turbine-output/2016/02/15/13/45/51
+project: ???
+JOB_ID=728646
+----
++
+When the job is done, look in the +TURBINE_OUTPUT+ directory,
+file +output.txt+.
+It will contain something like:
++
+----
+stdout[6]: input: .../Workflows/demo/LAMMPS-1/lammps_test/input-0.inp
+stdout[2]: LAMMPS (10 Aug 2015)
+stdout[2]: Reading data file ...
+stdout[2]:   1 by 1 by 1 MPI processor grid
+stdout[2]:   reading atoms ...
+stdout[2]:   1000 atoms
+...
+stdout[2]: Loop time of 65.376 on 1 procs for 1000 steps with 1000 atoms
+...
+stdout[7]: ADLB Total Elapsed Time: 66.738
+stdout[2]:   66.734 turbine finalizing
+----
++
+The +ADLB Total Elapsed Time+ and +turbine finalizing+ messages
+indicate successful workflow completion.
+
+
+== File index
+
++run.sh+:: The main entry point- submits the Swift workflow to Cobalt
+
++workflow.swift+:: The Swift workflow.  Accepts the data directory on
+the command line
+
++lammps.swift+:: The Swift function definition for LAMMPS
+
++lammps.i+:: The SWIG interface file.  Wraps LAMMPS for use by Swift
+
++lammps.tcl+:: LAMMPS argument converter- passes arguments from Swift
+to C++
+
++make-package.tcl+:: Makes the LAMMPS package for Swift
+
+=== Placeholders
+
++setup.sh+:: LAMMPS input file generator - currently unused
+
+The following things don't work on the BG/Q:
+
++scan.*+:: Tcl support - currently unused
+
++test.tcl+:: Test the LAMMPS package - currently unused
