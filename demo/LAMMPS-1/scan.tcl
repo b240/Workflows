@@ -1,5 +1,7 @@
 #!/usr/bin/env tclsh8.5
 
+set auto_path $env(PWD)
+
 package require lammps 0.0
 
 set cmds [ info commands ]
