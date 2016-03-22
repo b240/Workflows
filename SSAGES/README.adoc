@@ -37,7 +37,9 @@ new_SSAGES_MockMethod
 
 == File index
 
-+SSAGES.i+:: The SWIG interface file.  Wraps SSAGES for use by Tcl
++Makefile+:: Runs SWIG, builds the Tcl package (well commented)
+
++SSAGES.i+:: The SWIG interface file (well commented).  Wraps SSAGES for use by Tcl
 
 +make-package.tcl+:: Makes the SSAGES package for Tcl
 
