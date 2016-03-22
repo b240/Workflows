@@ -1,0 +1,48 @@
+
+////
+This is an Asciidoc file
+////
+
+= SSAGES Interface for Swift/T
+
+This currently just builds a Tcl interface for SSAGES.
+
+== Usage
+
+. Build the Tcl package
+// Swift leaf function
++
+----
+$ edit Makefile
+$ make
+----
++
+. Check that the Tcl functions are there
++
+----
+$ ./scan.tcl
+SSAGES_Method
+SSAGES_Method_SSAGES_PostIntegration
+SSAGES_Method_SSAGES_PostSimulation
+SSAGES_Method_SSAGES_PreSimulation
+SSAGES_MockMethod
+SSAGES_MockMethod_SSAGES_PostIntegration
+SSAGES_MockMethod_SSAGES_PostSimulation
+SSAGES_MockMethod_SSAGES_PreSimulation
+delete_SSAGES_Method
+delete_SSAGES_MockMethod
+new_SSAGES_MockMethod
+----
+. All of these functions may be called in parallel from Swift/T!
+
+== File index
+
++SSAGES.i+:: The SWIG interface file.  Wraps SSAGES for use by Tcl
+
++make-package.tcl+:: Makes the SSAGES package for Tcl
+
++scan.tcl+:: Checks what SSAGES functions are in the Tcl package
+
+=== Placeholders
+
++ssages.tcl+:: Unused
