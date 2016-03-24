@@ -1,6 +1,10 @@
 
 ////
 This is an Asciidoc file
+Edit README.adoc.m4, not README.adoc
+Build with 'make doc'
+We use m4 include() instead of Asciidoc include because we want to do
+the includes locally, not on GitHub
 ////
 
 = SSAGES Interface for Swift/T
@@ -21,7 +25,7 @@ $ make
 +
 ----
 $ ./scan.tcl
-include::scan.out[]
+m4_include(scan.out)
 ----
 . All of these functions may be called in parallel from Swift/T!
 +
@@ -29,7 +33,7 @@ include::scan.out[]
 +
 ----
 $ ./test.sh
-include::test.out[]
+m4_include(test.out)
 ----
 
 == File index
@@ -77,3 +81,9 @@ Wozniak is currently testing with:
 * Boost 1.6.0 (source)
 * OpenMPI 1.6.5-8 (APT)
 * LAMMPS 10Aug15 (built by SSAGES)
+
+////
+Local Variables:
+mode: doc
+End:
+////

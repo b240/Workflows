@@ -72,8 +72,9 @@ ASCIIDOC = asciidoc --attribute stylesheet=$(PWD)/doc.css \
                     -a max-width=750px -a textwidth=80
 
 doc: README.html
-README.html: README.adoc $(wildcard *.out)
-	$(ASCIIDOC) $(<)
+README.html: README.adoc.m4 $(wildcard *.out)
+	m4 --prefix-builtins $(<) > README.adoc
+	$(ASCIIDOC) README.adoc
 
 ### CLEAN
 
