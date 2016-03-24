@@ -71,6 +71,9 @@ pkgIndex.tcl: libtclssages.so
 ASCIIDOC = asciidoc --attribute stylesheet=$(PWD)/doc.css \
                     -a max-width=750px -a textwidth=80
 
+# Do not delete the intermediate README.adoc !
+# It is visible on GitHub
+
 doc: README.html
 README.html: README.adoc.m4 $(wildcard *.out)
 	m4 --prefix-builtins $(<) > README.adoc
