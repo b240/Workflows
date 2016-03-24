@@ -9,7 +9,8 @@ the includes locally, not on GitHub
 
 = SSAGES Interface for Swift/T
 
-This currently just builds a Tcl interface for SSAGES.
+This currently builds a Swift/T leaf function for SSAGES via a Tcl
+interface.
 
 == Usage
 
