@@ -16,7 +16,8 @@ TCL = $(HOME)/sfw/tcl-8.6.0
 # TCL_VERSION = 8.5
 TCL_VERSION = 8.6
 TCLSH  = $(TCL)/bin/tclsh$(TCL_VERSION)
-BOOST = /tmp/boost_1_60_0
+# BOOST = /tmp/boost_1_60_0
+BOOST = $(HOME)/sfw/boost_1_60_0
 BOOST_LIB = $(BOOST)/stage/lib
 
 SHARED = -shared
