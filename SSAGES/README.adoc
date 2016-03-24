@@ -91,7 +91,7 @@ The MockMethod object: _f06a000200000000_p_SSAGES__MockMethod
 cmake ... -DBOOST_ROOT=/tmp/boost_1_60_0
 ----
 
-== Library versions
+== Software versions
 
 Wozniak is currently testing with:
 

@@ -74,7 +74,7 @@ m4_include(test.out)
 cmake ... -DBOOST_ROOT=/tmp/boost_1_60_0
 ----
 
-== Library versions
+== Software versions
 
 Wozniak is currently testing with:
 
