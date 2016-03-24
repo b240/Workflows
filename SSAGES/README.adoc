@@ -21,19 +21,16 @@ $ make
 +
 ----
 $ ./scan.tcl
-SSAGES_Method
-SSAGES_Method_SSAGES_PostIntegration
-SSAGES_Method_SSAGES_PostSimulation
-SSAGES_Method_SSAGES_PreSimulation
-SSAGES_MockMethod
-SSAGES_MockMethod_SSAGES_PostIntegration
-SSAGES_MockMethod_SSAGES_PostSimulation
-SSAGES_MockMethod_SSAGES_PreSimulation
-delete_SSAGES_Method
-delete_SSAGES_MockMethod
-new_SSAGES_MockMethod
+include::scan.out[]
 ----
 . All of these functions may be called in parallel from Swift/T!
++
+. Run Swift/T!
++
+----
+$ ./test.sh
+include::test.out[]
+----
 
 == File index
 
@@ -45,6 +42,38 @@ new_SSAGES_MockMethod
 
 +scan.tcl+:: Checks what SSAGES functions are in the Tcl package
 
-=== Placeholders
++ssages.tcl+:: Tcl glue code between Swift and the SWIG-generated extensions
 
-+ssages.tcl+:: Unused
++ssages.swift+:: Swift/T leaf function header containing SSAGES API
+
++test.sh+:: User interface to run Swift/T
+
++test.swift+:: Simple Swift/T test to call into SSAGES
+
++utils.{h,cpp}+:: C++ glue code.  Currently just an +MPI_Comm+ &rarr;
++boost::mpi::communicator+ function
+
+== Boost notes
+
+* Be sure that LAMMPS, SSAGES, and the SSAGES Tcl Interface are using the same Boost.
+* To build Boost 1.60 from source, just do:
++
+----
+./bootstrap.sh
+./b2 --with-mpi
+----
++
+* Tell SSAGES about this installation with, e.g.:
++
+----
+cmake ... -DBOOST_ROOT=/tmp/boost_1_60_0
+----
+
+== Library versions
+
+Wozniak is currently testing with:
+
+* G++ 4.9.3 (APT)
+* Boost 1.6.0 (source)
+* OpenMPI 1.6.5-8 (APT)
+* LAMMPS 10Aug15 (built by SSAGES)

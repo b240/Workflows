@@ -1,52 +1,59 @@
 
 ### USER SETTINGS
 
-# CXX = g++
-CXX = g++-5
+CXX = g++
 
-SSAGES_CODE  = $(HOME)/proj/SSAGES/code
-SSAGES_BUILD = $(HOME)/proj/SSAGES/build
+SSAGES = $(HOME)/workspace-mars/SSAGES
+SSAGES_CODE  = $(SSAGES)/code
+SSAGES_BUILD = $(SSAGES)/build
 
 LAMMPS = $(HOME)/proj/SSAGES/lammps-10Aug15/src
 
-MPI =  $(HOME)/sfw/mpich-master
+# MPI =  $(HOME)/sfw/mpich-master
+# MPI_INCLUDE = $(MPI)/include
+MPI_INCLUDE = /usr/include/mpi
 TCL = $(HOME)/sfw/tcl-8.6.0
 # TCL_VERSION = 8.5
 TCL_VERSION = 8.6
 TCLSH  = $(TCL)/bin/tclsh$(TCL_VERSION)
+BOOST = /tmp/boost_1_60_0
+BOOST_LIB = $(BOOST)/stage/lib
+
 SHARED = -shared
 
 SSAGES_INCLUDES = -I$(SSAGES_CODE)/src
 
 ### DERIVED SETTINGS
 
-CPPFLAGS = -I$(MPI)/include -I$(TCL)/include $(SSAGES_INCLUDES)
+CPPFLAGS = -I$(MPI_INCLUDE) -I$(TCL)/include $(SSAGES_INCLUDES)
 CXXFLAGS = -std=gnu++11 -fPIC -g -O0 -Wall
 
 LIBS :=
 LIBS += -L$(SSAGES_BUILD) -lssages
-LIBS += -L$(LAMMPS) -llammps_mpi -lboost_mpi
+LIBS += -L$(LAMMPS)       -llammps_mpi
+LIBS += -L$(BOOST_LIB)    -lboost_mpi
 
 ### BUILD RULES
 
 all: pkgIndex.tcl
 
 # Generate Tcl extension (C++) for contents of SSAGES.i
-MockMethod_wrap.cxx: SSAGES.i
-	swig -c++ -o $(@)   \
+MockMethod_wrap.cpp: SSAGES.i
+	swig -c++ -o $(@)          \
 		$(SSAGES_INCLUDES) \
 		$(<)
-	sed -i s/Ssages_Init/Tclssages_Init/ $(@)
+	sed -i 's/Ssages_Init/Tclssages_Init/' $(@)
+	sed -i 's/static_cast< MPI_Comm >/(MPI_Comm)/' $(@)
 
 # Basic compilation rule
-%.o: %.cxx
+%.o: %.cpp
 	$(CXX) -c -o $(@)   \
 		$(CPPFLAGS) \
 		$(CXXFLAGS) \
 		$(<)
 
 # Link the shared library loadable by Tcl
-libtclssages.so: MockMethod_wrap.o
+libtclssages.so: MockMethod_wrap.o utils.o
 	$(CXX) $(SHARED) -o $(@) \
 		$(CXXFLAGS)      \
 		$(^)             \
@@ -65,11 +72,11 @@ ASCIIDOC = asciidoc --attribute stylesheet=$(PWD)/doc.css \
                     -a max-width=750px -a textwidth=80
 
 doc: README.html
-README.html: README.adoc
+README.html: README.adoc $(wildcard *.out)
 	$(ASCIIDOC) $(<)
 
 ### CLEAN
 
 clean:
-	rm -fv pkgIndex.tcl *.so *.o MockMethod_wrap.cxx
+	rm -fv pkgIndex.tcl *.so *.o MockMethod_wrap.cpp
 	rm -fv *.html

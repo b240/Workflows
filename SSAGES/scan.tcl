@@ -9,7 +9,7 @@ set cmds [ info commands ]
 set L [list]
 
 foreach cmd $cmds {
-  if [ regexp .*SSAGES.* $cmd ] { 
+  if [ regexp .*SSAGES.* $cmd ] {
     lappend L $cmd
   }
 }
