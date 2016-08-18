@@ -12,15 +12,15 @@ import sys
 class BondState:
 
     """ All science functionality is in the class. """
-    
+
     def __init__(self):
         """ Pretend to initialize something"""
         print("BondState.init() ...")
 
     def sim(self, step, sample, cuts):
-        """ Args: 
+        """ Args:
                  cuts (list): the cuts to apply
-            Returns: a pretend energy level, 
+            Returns: a pretend energy level,
                  which is a function of the step, sample, and cuts
         """
         print("BondState.sim(%s) ..." % cuts)
@@ -44,9 +44,9 @@ class BondState:
 
 # Swift interface functions:
 # obtain simple data types from Swift,
-# unpack and pass into science code,
-# pack and return to Swift via repr()
-    
+# unpack via eval() and pass into science code,
+# pack via repr() and return to Swift
+
 def sim(step, sample, cuts):
     global state
     if state == None:
