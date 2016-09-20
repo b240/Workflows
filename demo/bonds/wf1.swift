@@ -4,22 +4,22 @@ import python;
 import string;
 
 string cuts[];
-cuts[0] = "[]"; // Initially, just the Python empty list 
+cuts[0] = "[]"; // Initially, just the Python empty list
 steps = 3;
 
 samples = 3;
 
 (string energy) sim(int step, int sample, string c)
 {
-  energy = python_persist("import bonds_dummy",
-                          "bonds_dummy.sim(%i, %i, \"%s\")" %
+  energy = python_persist("import bonds_dummy1",
+                          "bonds_dummy1.sim(%i, %i, \"%s\")" %
                           (step, sample, c));
 }
 
 (string cut) select_cut(string pairs)
 {
-  cut = python_persist("import bonds_dummy",
-                       "bonds_dummy.select_cut(\"%s\")"%pairs);
+  cut = python_persist("import bonds_dummy1",
+                       "bonds_dummy1.select_cut(\"%s\")"%pairs);
 }
 
 // Step is indexed from 1, step 0 is the initial condition
