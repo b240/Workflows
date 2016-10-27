@@ -1,0 +1,5 @@
+pkgIndex.tcl
+*.so
+*.o
+*_wrap.cpp
+*.tic
