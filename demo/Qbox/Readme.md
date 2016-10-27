@@ -7,7 +7,7 @@ workflow and hand them to Qbox for execution.
 
 To get this to work, you need the minor modification to Qbox provided in `qbox-1.63.5-swift.diff`
 
-## Contents:
+## Contents
 
 * `Makefile`: Builds the Qbox interface.  Edit for your system and type `make`.  The Makefile uses:
 ** `qbox.i`: A SWIG interface file for Qbox
@@ -17,7 +17,7 @@ To get this to work, you need the minor modification to Qbox provided in `qbox-1
 * `make-package.tcl`: Boilerplate script to make the Swift package
 * `qbox-1.63.5-swift.diff`: The patch against Qbox 1.63.5 to make a shared library
 
-## Usage:
+## Usage
 
 ```
 $ make
