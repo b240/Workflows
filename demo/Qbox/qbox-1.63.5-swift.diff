@@ -1,0 +1,31 @@
+diff -r qbox-1.63.5.orig/src/Context.h qbox-1.63.5/src/Context.h
+28a29,30
+> #ifndef SWIG
+> 
+127a130,131
+> #endif
+> 
+247c251,257
+<     pcount(new int(1)) {}
+---
+>     pcount(new int(1))
+>     {
+>       int mpi_rank, mpi_size;
+>       MPI_Comm_rank(comm, &mpi_rank);
+>       MPI_Comm_size(comm, &mpi_size);
+>       std::cout << "New Context on: " << mpi_rank << "/" << mpi_size << std::endl;
+>     }
+Only in qbox-1.63.5/src: libqb.so
+diff -r qbox-1.63.5.orig/src/Makefile qbox-1.63.5/src/Makefile
+58c58,60
+< 	ar cr libqb.a $^
+---
+> # ar cr libqb.a $^
+> 	$(LD) -shared -o libqb.so $^ -l mpi_cxx -l xerces-c -lblas \
+> 		-l scalapack-openmpi -lpthread -lfftw3
+diff -r qbox-1.63.5.orig/src/qb.C qbox-1.63.5/src/qb.C
+122c122
+< int main(int argc, char **argv, char **envp)
+---
+> int qb_main(int argc, char **argv, char **envp)
+Only in qbox-1.63.5/src: umbra.mk
