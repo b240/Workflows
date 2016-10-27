@@ -1,31 +1,34 @@
-diff -r qbox-1.63.5.orig/src/Context.h qbox-1.63.5/src/Context.h
-28a29,30
-> #ifndef SWIG
-> 
-127a130,131
-> #endif
-> 
-247c251,257
-<     pcount(new int(1)) {}
----
->     pcount(new int(1))
->     {
->       int mpi_rank, mpi_size;
->       MPI_Comm_rank(comm, &mpi_rank);
->       MPI_Comm_size(comm, &mpi_size);
->       std::cout << "New Context on: " << mpi_rank << "/" << mpi_size << std::endl;
->     }
+diff -U 0 -r qbox-1.63.5.orig/src/Context.h qbox-1.63.5/src/Context.h
+--- qbox-1.63.5.orig/src/Context.h	2016-05-31 12:23:45.000000000 -0500
++++ qbox-1.63.5/src/Context.h	2016-10-27 10:30:44.754387742 -0500
+@@ -28,0 +29,2 @@
++#ifndef SWIG
++
+@@ -127,0 +130,2 @@
++#endif
++
+@@ -247 +251,7 @@
+-    pcount(new int(1)) {}
++    pcount(new int(1))
++    {
++      int mpi_rank, mpi_size;
++      MPI_Comm_rank(comm, &mpi_rank);
++      MPI_Comm_size(comm, &mpi_size);
++      std::cout << "New Context on: " << mpi_rank << "/" << mpi_size << std::endl;
++    }
 Only in qbox-1.63.5/src: libqb.so
-diff -r qbox-1.63.5.orig/src/Makefile qbox-1.63.5/src/Makefile
-58c58,60
-< 	ar cr libqb.a $^
----
-> # ar cr libqb.a $^
-> 	$(LD) -shared -o libqb.so $^ -l mpi_cxx -l xerces-c -lblas \
-> 		-l scalapack-openmpi -lpthread -lfftw3
-diff -r qbox-1.63.5.orig/src/qb.C qbox-1.63.5/src/qb.C
-122c122
-< int main(int argc, char **argv, char **envp)
----
-> int qb_main(int argc, char **argv, char **envp)
+diff -U 0 -r qbox-1.63.5.orig/src/Makefile qbox-1.63.5/src/Makefile
+--- qbox-1.63.5.orig/src/Makefile	2016-07-04 23:43:09.000000000 -0500
++++ qbox-1.63.5/src/Makefile	2016-10-26 17:09:02.202647452 -0500
+@@ -58 +58,3 @@
+-	ar cr libqb.a $^
++# ar cr libqb.a $^
++	$(LD) -shared -o libqb.so $^ -l mpi_cxx -l xerces-c -lblas \
++		-l scalapack-openmpi -lpthread -lfftw3
+diff -U 0 -r qbox-1.63.5.orig/src/qb.C qbox-1.63.5/src/qb.C
+--- qbox-1.63.5.orig/src/qb.C	2016-05-31 12:23:45.000000000 -0500
++++ qbox-1.63.5/src/qb.C	2016-10-26 16:18:25.698686663 -0500
+@@ -122 +122 @@
+-int main(int argc, char **argv, char **envp)
++int qb_main(int argc, char **argv, char **envp)
 Only in qbox-1.63.5/src: umbra.mk
